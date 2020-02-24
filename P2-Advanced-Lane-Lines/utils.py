@@ -162,3 +162,39 @@ def plot_image(img, title=None, gray=False):
     else:
         plt.imshow(img)
     plt.show()
+    
+def hist(img):
+    img = img/255.0
+    # img.shape = (y, x) 720, 1280
+    bottom_half = img[img.shape[0]//2:, :]
+    
+    histogram = np.sum(bottom_half, axis=0)
+    
+    return histogram
+
+def measure_curvature_pixels(left_coefficients, right_coefficients, y_values):
+    # We'll choose the maximum y-value, corresponding to the bottom of the image
+    y_eval = np.max(y_values)
+    
+    # Calculation of R_curve (radius of curvature)
+    left_curverature = ((1 + (2*left_coefficients[0]*y_eval + left_coefficients[1])**2)**1.5) / np.absolute(2*left_coefficients[0])
+    right_curverature = ((1 + (2*right_coefficients[0]*y_eval + right_coefficients[1])**2)**1.5) / np.absolute(2*right_coefficients[0])
+    
+    return left_curverature, right_curverature
+
+def fit_polynomial(left_x, left_y, right_x, right_y, img_shape):    
+    # coefficients from Ex: 2x² + 5x + 4 = [2, 5, 4]
+    # np.polyfit finds the values that solves a n degree equation that describes the given points
+    left_coefficients = np.polyfit(left_y, left_x, 2)
+    right_coefficients = np.polyfit(right_y, right_x, 2)
+    
+    # generate y values to plot the lane line to later get x position and plot the line
+    # Ex: f(y) = 2y² + 5y + 4. I'm here generating values for y
+    # This function generate img_shape.shape[0](720) values from [0, img_shape.shape[0]-1(719)]
+    y_values = np.linspace(0, img_shape[0]-1, img_shape[0])
+    
+    # get the x values from the y values previsiously generated
+    left_x_values  = left_coefficients[0] * y_values**2 + left_coefficients[1] * y_values + left_coefficients[2]
+    right_x_values = right_coefficients[0] * y_values**2 + right_coefficients[1] * y_values + right_coefficients[2]
+    
+    return left_x_values, right_x_values, y_values
