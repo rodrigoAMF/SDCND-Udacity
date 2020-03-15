@@ -2,6 +2,21 @@
 # Created by https://www.gitignore.io/api/c++,linux,python,windows,pycharm+all,jupyternotebooks,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=c++,linux,python,windows,pycharm+all,jupyternotebooks,visualstudiocode
 
+### Custom files and folders ###
+writeup_template.md
+*.avi
+*.mp4
+*.npy
+
+# P4 #
+P4-Behavioral-Cloning/beta_simulator_windows/
+P4-Behavioral-Cloning/data/
+P4-Behavioral-Cloning/udacity_data/
+P4-Behavioral-Cloning/run15/
+P4-Behavioral-Cloning/run20/
+P4-Behavioral-Cloning/run25/
+P4-Behavioral-Cloning/run30/
+
 ### C++ ###
 # Prerequisites
 *.d
