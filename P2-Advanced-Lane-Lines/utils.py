@@ -173,7 +173,6 @@ def hist(img):
     return histogram
 
 def measure_curvature_pixels(left_coefficients, right_coefficients, y_values):
-    # We'll choose the maximum y-value, corresponding to the bottom of the image
     y_eval = np.max(y_values)
     
     # Calculation of R_curve (radius of curvature)
