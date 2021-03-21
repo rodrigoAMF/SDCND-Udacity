@@ -149,3 +149,9 @@ center_offset_pixels = camera_position - lane_center
 center_offset_mtrs = xm_per_pix*center_offset_pixels
 ```
 
+## Known issues
+
+* The edge detector does not perform well when shadows are on the lane lines, compromising the performance of the entire pipeline;
+* The lane curvature calculated eventually shows very high values that are not reliable;
+* The execution of the lane detection pipeline is relatively slow (~ 2s per image), which would be a big problem if applied to a real car;
+* Not all the streets have two well-defined lanes, as in the images used in this project, in this type of situation the system would not work well, since it assumes that we always have two lane lines.
