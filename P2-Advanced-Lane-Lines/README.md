@@ -4,7 +4,7 @@
   <img src="./readme_images/project_gif.gif"/>
 </p>
 
-In this project, the goal was to write a software pipeline to identify the lane boundaries in a video. The final result can be seen on [youtube](https://www.youtube.com/watch?v=7xK1cwfa4ik). 
+In this project, the goal was to write a software pipeline to identify the lane boundaries in a video. The final result can be seen on [youtube](https://www.youtube.com/watch?v=ime1Mjpe7Eg). 
 
 The Project
 ---
