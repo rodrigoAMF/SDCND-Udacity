@@ -1,33 +1,35 @@
-# Behavioral Cloning Project
+# Project 4 - Behavioral Cloning
 
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-<p align="center">
-  <img src="./project_gif.gif"/>
-</p>
+Track 1             |  Track 2
+:-------------------------:|:-------------------------:
+![](./track1.gif)  |  ![](./track2.gif)
 
 Overview
 ---
 
-In this project, were used a convolutional neural networks to clone driving behavior. The model outputs a steering angle to an autonomous vehicle. The final result can be seen on [youtube](https://www.youtube.com/watch?v=QQiRjua-4RU). 
+In this project, were used a convolutional neural network to clone driving behavior using imitation learning. The goal was to create an agent capable of navigate correctly at least in track 1, no tire leaving the drivable portion of the track surface. 
+
+Multiple experiments with different architectures of convolutional neural networks were made, like for example, with the one proposed on [End to End Learning for Self-Driving Cars](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf)), and the architecture with the best performance was [EfficientNetB0](https://arxiv.org/pdf/1905.11946.pdf). The neural network use as input an image from a front-facing camera and outputs a steering angle to maintain the vehicle on track. To control the speed of the vehicle, it's used a PI controller with a set speed of 20 mph.
+
+The final results can be seen on youtube using the links below:
+* Track1: https://youtu.be/XZHiomgoXMc
+* Track2: https://youtu.be/BuaSlohBVjY
 
 The Project
 ---
 The steps of this project was the following:
-* Use the simulator to collect data of good driving behavior 
-* Design, train and validate a model that predicts a steering angle from image data
+* Use the simulator to collect data of good driving behavior: Were collected data from track1 and track2, driving clockwise and counter-clockwise, always trying to keep it in the center of the lane. 
+* Data preprocessing: Images from left and right camera were used to augment data. For left images, an offset of 0.2 were added to steering angles, and for right images, an offset of -0.2 were added to steering angles. Those offsets is necessary since left and right cameras are displaced in relation to the central camera, which is used later to drive the car. For full details see "1. Data preprocessing".
+* Design, train and validate a model that predicts a steering angle from image data: Diffent models were used but EfficientNetB0 were the most efficient (couldn't miss the joke). For more details of which parameters were used for the network, see "2. Train Model".
 * Use the model to drive the vehicle autonomously around the first track in the simulator. The vehicle should remain on the road for an entire loop around the track.
 
 ## Details About Files In This Directory
 
 ### `drive.py`
 
-Usage of `drive.py` requires you have saved the trained model as an h5 file, i.e. `model.h5`. See the [Keras documentation](https://keras.io/getting-started/faq/#how-can-i-save-a-keras-model) for how to create this file using the following command:
-```sh
-model.save(filepath)
-```
-
-Once the model has been saved, it can be used with drive.py using this command:
+Usage of `drive.py` requires you have saved the trained model as an h5 file (keras model file), i.e. `model.h5`. It can be used with drive.py using this command:
 
 ```sh
 python drive.py model.h5
@@ -78,11 +80,3 @@ python video.py run1 --fps 48
 ```
 
 Will run the video at 48 FPS. The default FPS is 60.
-
-#### Why create a video
-
-1. It's been noted the simulator might perform differently based on the hardware. So if your model drives succesfully on your machine it might not on another machine (your reviewer). Saving a video is a solid backup in case this happens.
-2. You could slightly alter the code in `drive.py` and/or `video.py` to create a video of what your model sees after the image is processed (may be helpful for debugging).
-
-### Tips
-- Please keep in mind that training images are loaded in BGR colorspace using cv2 while drive.py load images in RGB to predict the steering angles.
